@@ -1,27 +1,45 @@
-#container {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+* {
+  font-family: 'Heebo', sans-serif;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+ion-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+ion-content {
+  --background: #272729;
 }
 
-#container a {
-  text-decoration: none;
+.textInput {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--ion-color-light);
+  border-radius: 0.6rem;
+  margin: 1rem;
+  box-shadow: 0 0 0.3rem #0000006e;
+
+  ion-textarea {
+    font-size: 2rem;
+    font-weight: 300;
+    height: 30vh;
+  }
+
+  .textInputHeader {
+    padding-right: 0.3rem;
+    padding-left: 0.3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #161414;
+
+    .languageSelection {
+      display: flex;
+      align-items: center;
+      font-size: 1.3rem;
+    }
+  }
 }

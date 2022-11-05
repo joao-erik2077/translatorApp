@@ -1,20 +1,43 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar mode="ios">
     <ion-title>
-      Blank
+      TRANSLATE
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="textInput">
+    <div class="textInputHeader">
+      <div class="languageSelection">
+        <ion-label>From</ion-label>
+        <ion-select placeholder="Language">
+          <ion-select-option value="apples">English</ion-select-option>
+          <ion-select-option value="oranges">Portuguese</ion-select-option>
+          <ion-select-option value="bananas">Spanish</ion-select-option>
+        </ion-select>
+      </div>
+
+      <ion-button fill="outline" color="danger"><ion-icon name="mic-outline"></ion-icon></ion-button>
+    </div>
+
+    <ion-textarea rows="4" placeholder="Enter text..."></ion-textarea>
   </div>
+
+  <div class="textInput">
+    <div class="textInputHeader">
+      <div class="languageSelection">
+        <ion-label>To</ion-label>
+        <ion-select placeholder="Language">
+          <ion-select-option value="apples">English</ion-select-option>
+          <ion-select-option value="oranges">Portuguese</ion-select-option>
+          <ion-select-option value="bananas">Spanish</ion-select-option>
+        </ion-select>
+      </div>
+    </div>
+
+    <ion-textarea rows="4" placeholder="Enter text..."></ion-textarea>
+  </div>
+
 </ion-content>
