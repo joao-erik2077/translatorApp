@@ -1,0 +1,7 @@
+{
+  "name": "translatorApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
