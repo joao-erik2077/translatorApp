@@ -5,6 +5,8 @@ import { ModalController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { LanguageModalComponent } from '../language-modal/language-modal.component';
 
+import { parse } from 'bcp-47';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -111,10 +113,13 @@ export class HomePage {
     this.toLanguage = data;
   }
 
-  ttsSpeak() {
+  async ttsSpeak() {
     if (!this.toTranslateText) {
       return this.noTextToast();
     }
-  }
 
+    const froml: string = parse(this.fromLanguage).language;
+    const tol: string = parse(this.toLanguage).language;
+
+  }
 }
