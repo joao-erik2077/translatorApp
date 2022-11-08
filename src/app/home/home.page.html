@@ -19,10 +19,11 @@
         </ion-select>
       </div>
 
-      <ion-button fill="outline" color="danger"><ion-icon name="mic-outline"></ion-icon></ion-button>
+      <ion-button fill="outline" color="success" *ngIf="!listening" (click)="startListening()"><ion-icon name="mic-outline"></ion-icon></ion-button>
+      <ion-button fill="outline" color="danger" *ngIf="listening" (click)="stopListening()"><ion-icon name="mic-outline"></ion-icon></ion-button>
     </div>
 
-    <ion-textarea rows="4" placeholder="Enter text..."></ion-textarea>
+    <ion-textarea rows="4" placeholder="Enter text..." [value]="translateText"></ion-textarea>
   </div>
 
   <div class="textInput">
