@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { SpeechRecognition } from '@capacitor-community/speech-recognition';
 
+import { ModalController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
+import { LanguageModalComponent } from '../language-modal/language-modal.component';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -9,36 +13,56 @@ import { SpeechRecognition } from '@capacitor-community/speech-recognition';
 export class HomePage {
 
   listening = false;
-  languages: string[];
-  language = 'en-US';
-  translateText: string;
+  fromLanguage = 'en-US';
+  toLanguage = 'pt-BR';
+  toTranslateText: string;
+  translatedText: string;
+  openingFromModal = false;
+  openingToModal = false;
 
-  constructor() {
+  constructor(private modalCtrl: ModalController, private toastController: ToastController) {
     SpeechRecognition.requestPermission();
-    this.getLanguages();
   }
 
-  async getLanguages() {
-    await SpeechRecognition.getSupportedLanguages().then(data => this.languages = data.languages);
+  async noLanguageToast() {
+    const toast = await this.toastController.create({
+      message: 'Select a language first',
+      color: 'danger',
+      duration: 1500,
+      position: 'bottom'
+    });
+
+    await toast.present();
   }
 
-  changeLanguage(event: any) {
-    this.language = event.detail.value;
+  async noTextToast() {
+    const toast = await this.toastController.create({
+      message: 'Type the text to be translated before',
+      color: 'primary',
+      duration: 1500,
+      position: 'bottom'
+    });
+
+    await toast.present();
   }
 
   async startListening() {
+    if (!this.fromLanguage) {
+      return this.noLanguageToast();
+    }
+
     const { available } = await SpeechRecognition.available();
 
     if (available) {
       this.listening = true;
       SpeechRecognition.start({
-        language: this.language,
+        language: this.fromLanguage,
         maxResults: 1,
         partialResults: false,
         popup: false,
     }).then(result => {
         if (result.matches[0]) {
-          this.translateText = result.matches[0];
+          this.toTranslateText = result.matches[0];
           this.stopListening();
         }
     });
@@ -49,6 +73,48 @@ export class HomePage {
   stopListening() {
     this.listening = false;
     SpeechRecognition.stop();
+  }
+
+  openModal(modal: string) {
+    return modal === 'from' ? this.openFromModal() : this.openToModal();
+  }
+
+  async openFromModal() {
+    this.openingFromModal = true;
+    this.openingToModal = false;
+
+    const modal = await this.modalCtrl.create({
+      component: LanguageModalComponent,
+    });
+    modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    if (data === null) {
+      return;
+    }
+    this.fromLanguage = data;
+  }
+
+  async openToModal() {
+    this.openingFromModal = false;
+    this.openingToModal = true;
+
+    const modal = await this.modalCtrl.create({
+      component: LanguageModalComponent,
+    });
+    modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    if (data === null) {
+      return;
+    }
+    this.toLanguage = data;
+  }
+
+  ttsSpeak() {
+    if (!this.toTranslateText) {
+      return this.noTextToast();
+    }
   }
 
 }

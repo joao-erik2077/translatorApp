@@ -12,11 +12,7 @@
     <div class="textInputHeader">
       <div class="languageSelection">
         <ion-label>From</ion-label>
-        <ion-select placeholder="Language">
-          <ion-select-option value="apples">English</ion-select-option>
-          <ion-select-option value="oranges">Portuguese</ion-select-option>
-          <ion-select-option value="bananas">Spanish</ion-select-option>
-        </ion-select>
+        <h1 (click)="openModal('from')">{{fromLanguage || 'Language'}}<ion-icon name="caret-down-outline"></ion-icon></h1>
       </div>
 
       <ion-button fill="outline" color="success" mode="ios"
@@ -25,24 +21,21 @@
         *ngIf="listening" (click)="stopListening()"><ion-icon name="mic-outline"></ion-icon></ion-button>
     </div>
 
-    <ion-textarea rows="4" placeholder="Enter text..." [value]="translateText" mode="ios"></ion-textarea>
+    <ion-textarea rows="4" placeholder="Enter text..." [value]="toTranslateText" mode="ios"></ion-textarea>
   </div>
 
   <div class="textInput">
     <div class="textInputHeader">
       <div class="languageSelection">
         <ion-label>To</ion-label>
-        <ion-select placeholder="Language">
-          <ion-select-option value="apples">English</ion-select-option>
-          <ion-select-option value="oranges">Portuguese</ion-select-option>
-          <ion-select-option value="bananas">Spanish</ion-select-option>
-        </ion-select>
+        <h1 (click)="openModal('to')">{{toLanguage || 'Language'}}<ion-icon name="caret-down-outline"></ion-icon></h1>
       </div>
+
+      <ion-button fill="outline" color="primary" mode="ios"
+        (click)="ttsSpeak()"><ion-icon name="mic-outline"></ion-icon></ion-button>
     </div>
 
-    <ion-textarea rows="4" placeholder="Enter text..." mode="ios"></ion-textarea>
+    <ion-textarea rows="4" disabled mode="ios" [value]="translatedText"></ion-textarea>
   </div>
-
-
 
 </ion-content>

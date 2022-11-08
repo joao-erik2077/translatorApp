@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss(null)"><ion-icon name="arrow-back-outline" slot="icon-only" color="dark"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>Language selection</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar (ionChange)="search($event.target.value)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let lang of languagesFilter" (click)="dismiss(lang)">{{ lang }}</ion-item>
+  </ion-list>
+</ion-content>
